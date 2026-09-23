@@ -8,7 +8,7 @@ client = anthropic.Anthropic()
 SYSTEM_PROMPT = """You are an IT help desk triage assistant.
 Read the support ticket and respond with ONLY a JSON object, with no other text, in this exact format:
 {
-  "category": one of "Account Access", "Hardware", "Software", "Network", "Other",
+  "category": one of "Account Access", "Hardware", "Software", "Network", "Security", "Other",
   "priority": one of "High", "Medium", "Low",
   "summary": a one-sentence summary of the problem,
   "suggested_reply": a short, friendly first reply to the user
@@ -27,9 +27,10 @@ def triage_ticket(ticket):
     return json.loads(text)
 
 
-result = triage_ticket("The printer on the 3rd floor is printing kind of faded. Not urgent, just letting you know.")
+if __name__ == "__main__":
+    result = triage_ticket("The printer on the 3rd floor is printing kind of faded. Not urgent, just letting you know.")
 
-print("Category:", result["category"])
-print("Priority:", result["priority"])
-print("Summary:", result["summary"])
-print("Suggested reply:", result["suggested_reply"])
+    print("Category:", result["category"])
+    print("Priority:", result["priority"])
+    print("Summary:", result["summary"])
+    print("Suggested reply:", result["suggested_reply"])
